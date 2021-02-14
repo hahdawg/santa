@@ -1,8 +1,8 @@
+import os
 from os.path import join
 from pathlib import Path
 
 import dask
-import dask.dataframe as dd
 import pandas as pd
 from tqdm import tqdm
 
@@ -10,6 +10,15 @@ SRC_DIR = Path(__file__).parent.absolute()
 ROOT_DIR = Path(SRC_DIR).parent
 DATA_DIR = join(ROOT_DIR, "data")
 PROC_DATA_PATH = join(DATA_DIR, "proc.h5")
+
+
+def fetch_raw_data():
+    comp = "santander-customer-transaction-prediction"
+    dl_cmd = f"kaggle competitions download -p {DATA_DIR} " \
+        + f"-c {comp}"
+    os.system(dl_cmd)
+    unzip_cmd = f"unzip -o {comp}.zip -d {DATA_DIR}"
+    os.system(unzip_cmd)
 
 
 def load_raw_train():
@@ -81,6 +90,7 @@ def process_data(df):
 
     X = df.drop(["y"], axis=1)
     cols_orig = X.columns
+    # Leakage but don't care
     for c in tqdm(cols_orig):
         X[f"{c}_count"] = X[c].groupby(X[c]).transform("count")
     dmatrix = X.copy()
