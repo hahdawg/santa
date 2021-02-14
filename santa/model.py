@@ -6,7 +6,7 @@ from hyperopt.fmin import fmin
 import lightgbm as lgb
 from sklearn.model_selection import train_test_split
 
-HP_NAMES = ("min_data_in_leaf", "num_leaves", "feature_fraction")
+HP_NAMES = ("min_data_in_leaf", "num_leaves", "feature_fraction", "bagging_fraction")
 
 DEFAULT_HP = dict(
     objective="binary",
