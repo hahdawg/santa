@@ -11,11 +11,11 @@ HP_NAMES = ("min_data_in_leaf", "num_leaves", "feature_fraction")
 DEFAULT_HP = dict(
     objective="binary",
     learning_rate=0.2,
-    min_data_in_leaf=1,
-    num_leaves=int(3),
+    min_data_in_leaf=425,
+    num_leaves=3,
     bagging_freq=1,
-    bagging_fraction=0.9,
-    feature_fraction=0.1,
+    bagging_fraction=0.85,
+    feature_fraction=0.99,
     metric="auc",
     feature_pre_filter=False
 )
